@@ -104,13 +104,8 @@ fn event(app: &App, model: &mut Model, event: Event) {
 }
 
 fn update(app: &App, model: &mut Model, update: Update){
-    model.counter +=  (model.words_per_minute as f32 + (model.score / 10) as f32) / 60.0;
+    model.counter +=  (model.words_per_minute as f32 + model.score as f32) / 60.0;
     let coeff =  model.level;
-    if model.counter >= 360.0 {
-        model.counter = 0.0;
-    };
-
-    
         for  i in &mut model.live_words {
             let step = coeff as f64 *  i.velocity / 60.0;
             i.y -= step;
@@ -134,9 +129,9 @@ fn update(app: &App, model: &mut Model, update: Update){
 
         };
         let word_in_new_word = word_bank.choose(&mut rand::thread_rng()).unwrap().clone();
-        let x = rand::thread_rng ().gen_range (app.window_rect().left()as i16+20..app.window_rect().right() as i16 -20 ) as f64;
+        let x = rand::thread_rng ().gen_range (app.window_rect().left()as i16+40..app.window_rect().right() as i16 -40 ) as f64;
         let y = app.window_rect().top() as f64;
-        let velocity = rand::thread_rng ().gen_range (1..25) as f64;
+        let velocity = rand::thread_rng ().gen_range (1..35) as f64;
         let word = LiveWord {
             x: x,
             y: y,
